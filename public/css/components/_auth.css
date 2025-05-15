@@ -1,0 +1,35 @@
+.uc-auth {
+    max-width: 400px;
+    margin: 2rem auto;
+    background: #fff;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.04);
+    text-align: center;
+}
+
+.uc-auth__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+}
+
+.uc-auth__actions {
+    text-align: right;
+    margin-top: 0.5rem;
+}
+
+.uc-auth__footer {
+    margin-top: 1.5rem;
+}
+
+.uc-auth__text {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.uc-link {
+    color: #2563eb;
+    text-decoration: underline;
+}

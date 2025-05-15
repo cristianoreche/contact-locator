@@ -1,0 +1,21 @@
+.uc-button {
+    padding: 0.6rem 1.25rem;
+    background-color: #2563eb;
+    color: white;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.uc-button--secondary {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+.uc-button--danger {
+    background: #dc2626;
+}
+
+.w-full {
+    width: 100%;
+}

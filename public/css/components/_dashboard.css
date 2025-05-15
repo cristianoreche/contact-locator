@@ -1,0 +1,16 @@
+.uc-dashboard {
+    padding: 1rem 0;
+}
+
+.uc-dashboard__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #1e3a8a;
+}
+
+.uc-dashboard__grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}

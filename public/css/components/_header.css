@@ -1,0 +1,34 @@
+.uc-header {
+    background-color: #1e3a8a;
+    padding: 1rem 0;
+    color: white;
+}
+
+.uc-header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.uc-header__logo a {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+}
+
+.uc-header__nav {}
+
+.uc-header__menu {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.uc-header__menu a {
+    color: white;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
+}
+
+.uc-header__menu a:hover {
+    opacity: 0.8;
+}

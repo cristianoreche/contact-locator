@@ -1,0 +1,27 @@
+.uc-pagination {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.uc-pagination__link {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    background: white;
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    transition: var(--transition);
+}
+
+.uc-pagination__link:hover {
+    background-color: var(--color-bg);
+}
+
+.uc-pagination__active {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}

@@ -1,0 +1,38 @@
+.uc-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: 0.3s ease;
+}
+
+.uc-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.07);
+}
+
+.uc-card__header {
+    border-bottom: 1px solid #f3f4f6;
+    margin-bottom: 1rem;
+}
+
+.uc-card__title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.uc-card__body {
+    text-align: left;
+}
+
+.uc-card__value {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #111827;
+}
+
+.uc-card__label {
+    font-size: 0.875rem;
+    color: #6b7280;
+}

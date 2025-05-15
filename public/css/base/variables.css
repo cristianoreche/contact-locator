@@ -1,0 +1,14 @@
+:root {
+    --color-primary: #2563eb;
+    --color-danger: #dc2626;
+    --color-neutral: #6b7280;
+    --color-bg: #f9fafb;
+    --color-text: #111827;
+
+    --font-size-base: 1rem;
+    --font-size-sm: 0.875rem;
+    --font-size-lg: 1.25rem;
+
+    --radius-md: 0.75rem;
+    --transition: 0.2s ease-in-out;
+}
