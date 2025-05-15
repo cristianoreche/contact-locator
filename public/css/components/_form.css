@@ -1,0 +1,30 @@
+.uc-form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.25rem;
+}
+
+.uc-form-label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.uc-form-input {
+    padding: 0.75rem;
+    font-size: var(--font-size-base);
+    border: 1px solid #d1d5db;
+    border-radius: var(--radius-md);
+    transition: border-color var(--transition);
+}
+
+.uc-form-input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+.uc-form__row {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+}

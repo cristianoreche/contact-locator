@@ -13,6 +13,21 @@ return new class extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
+            $table->string('name');
+            $table->string('cpf')->unique();
+            $table->string('phone');
+            $table->string('cep');
+            $table->string('state');
+            $table->string('city');
+            $table->string('street');
+            $table->string('number');
+            $table->string('complement')->nullable();
+            $table->string('bairro')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
+
             $table->timestamps();
         });
     }

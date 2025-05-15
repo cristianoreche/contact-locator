@@ -1,5 +1,7 @@
 .uc-modal {
     background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
     position: fixed;
     inset: 0;
     display: flex;
@@ -7,6 +9,7 @@
     justify-content: center;
     z-index: 999;
     padding: 1rem;
+    overflow-y: auto;
 }
 
 .uc-modal__content {
@@ -15,7 +18,10 @@
     padding: 2rem;
     max-width: 500px;
     width: 100%;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .uc-modal__title {

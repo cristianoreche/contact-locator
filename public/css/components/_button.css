@@ -1,21 +1,90 @@
 .uc-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     padding: 0.6rem 1.25rem;
-    background-color: #2563eb;
-    color: white;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    transition: background-color 0.2s ease;
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    transition: background-color var(--transition), box-shadow var(--transition);
+    text-decoration: none;
+    line-height: 1.2;
+    outline: none;
+}
+
+.uc-button:hover {
+    background-color: #1e40af; 
+}
+
+.uc-button:focus {
+    outline: 2px solid #93c5fd;
+    outline-offset: 2px;
+}
+
+.uc-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .uc-button--secondary {
-    background: #e5e7eb;
-    color: #111827;
+    background-color: #e5e7eb;
+    color: var(--color-text);
+}
+
+.uc-button--secondary:hover {
+    background-color: #d1d5db;
 }
 
 .uc-button--danger {
-    background: #dc2626;
+    background-color: var(--color-danger);
+    color: #ffffff;
+}
+
+.uc-button--danger:hover {
+    background-color: #b91c1c;
+}
+
+.uc-button--outline {
+    background-color: transparent;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+}
+
+.uc-button--outline:hover {
+    background-color: var(--color-primary);
+    color: #fff;
+}
+
+.uc-button--sm {
+    padding: 0.4rem 1rem;
+    font-size: var(--font-size-sm);
+}
+
+.uc-button--lg {
+    padding: 0.75rem 1.5rem;
+    font-size: var(--font-size-lg);
 }
 
 .w-full {
     width: 100%;
 }
+
+.uc-button__spinner {
+    display: inline-block;
+    font-size: 1.1em;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+

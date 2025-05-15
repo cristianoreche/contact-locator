@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Contact\ContactStoreRequest;
 use App\Http\Requests\Contact\ContactUpdateRequest;
 use App\Services\MockGeocoderService;
-
+use Illuminate\Support\Facades\Response;
 
 class ContactWebController extends Controller
 {
@@ -26,13 +26,6 @@ class ContactWebController extends Controller
         $contacts = $query->orderBy('name')->paginate(10);
 
         return view('contacts.index', compact('contacts'));
-    }
-
-    public function location($id)
-    {
-        $contact = Contact::where('user_id', auth()->id())->findOrFail($id);
-
-        return view('contacts.show-location', compact('contact'));
     }
 
     public function create()
@@ -106,6 +99,60 @@ class ContactWebController extends Controller
         ]);
 
         return redirect()->route('contacts.index')->with('success', 'Contato atualizado com sucesso.');
+    }
+
+    public function export()
+    {
+        $contacts = Contact::where('user_id', auth()->id())->get();
+
+        $csv = [];
+        $csv[] = [
+            'Nome',
+            'CPF',
+            'Telefone',
+            'CEP',
+            'Estado',
+            'Cidade',
+            'Bairro',
+            'Rua',
+            'Número',
+            'Complemento',
+            'Latitude',
+            'Longitude'
+        ];
+
+        foreach ($contacts as $contact) {
+            $csv[] = [
+                $contact->name,
+                $contact->cpf,
+                $contact->phone,
+                $contact->cep,
+                $contact->state,
+                $contact->city,
+                $contact->bairro,
+                $contact->street,
+                $contact->number,
+                $contact->complement,
+                $contact->latitude,
+                $contact->longitude,
+            ];
+        }
+
+        $filename = 'contatos_' . now()->format('Ymd_His') . '.csv';
+        $handle = fopen('php://temp', 'r+');
+
+        foreach ($csv as $line) {
+            fputcsv($handle, $line, ';');
+        }
+
+        rewind($handle);
+        $content = stream_get_contents($handle);
+        fclose($handle);
+
+        return Response::make($content, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+        ]);
     }
 
 

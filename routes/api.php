@@ -10,7 +10,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
 // Endereço 
-Route::middleware('auth:sanctum')->get('/address/search', [AddressController::class, 'search']);
+Route::get('/address/search', [AddressController::class, 'search']);
 
 // Rotas protegidas por token
 Route::middleware('auth:sanctum')->group(function () {

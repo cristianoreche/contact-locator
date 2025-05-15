@@ -12,10 +12,10 @@ class Map extends Component
     public string $id;
     public int $zoom;
 
-    public function __construct(float $lat, float $lng, string $id = 'main', int $zoom = 13)
+    public function __construct(?float $lat, ?float $lng, string $id = 'main', int $zoom = 13)
     {
-        $this->lat = $lat;
-        $this->lng = $lng;
+        $this->lat = $lat ?? 0;
+        $this->lng = $lng ?? 0;
         $this->id = $id;
         $this->zoom = $zoom;
     }

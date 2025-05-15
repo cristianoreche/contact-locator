@@ -4,33 +4,36 @@
 
 .uc-form__label {
     display: block;
-    font-weight: 600;
+    font-weight: 400;
     margin-bottom: 0.25rem;
-    color: #374151;
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    text-align: left;
 }
 
 .uc-form__required {
-    color: #dc2626;
+    color: var(--color-danger);
     margin-left: 0.25rem;
 }
 
 .uc-form__input {
     width: 100%;
     padding: 0.5rem 0.75rem;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--color-border);
     border-radius: 0.375rem;
     font-size: 0.875rem;
-    color: #111827;
+    color: var(--color-text);
 }
 
 .uc-form__input:focus {
     outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 1px #2563eb;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 1px var(--color-primary);
 }
 
 .uc-form__error {
-    color: #dc2626;
+    color: var(--color-danger);
     font-size: 0.75rem;
     margin-top: 0.25rem;
+    text-align: left;
 }
