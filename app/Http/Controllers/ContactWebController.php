@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Services\Loggers\AuditLogger;
 use Illuminate\Http\Request;
 use App\Http\Requests\Contact\ContactStoreRequest;
 use App\Http\Requests\Contact\ContactUpdateRequest;
@@ -67,6 +68,8 @@ class ContactWebController extends Controller
             'longitude' => $coords['lng'],
         ]);
 
+        AuditLogger::log('created_contact', "Criou o contato '{$data['name']}'");
+
         return redirect()->route('contacts.index')->with('success', 'Contato salvo com sucesso.');
     }
 
@@ -105,6 +108,8 @@ class ContactWebController extends Controller
             'longitude' => $coords['lng'],
         ]);
 
+        AuditLogger::log('updated_contact', "Atualizou o contato '{$contact->name}'");
+
         return redirect()->route('contacts.index')->with('success', 'Contato atualizado com sucesso.');
     }
 
@@ -112,6 +117,8 @@ class ContactWebController extends Controller
     {
         $contact = Contact::where('user_id', auth()->id())->findOrFail($id);
         $contact->delete();
+
+        AuditLogger::log('deleted_contact', "Excluiu o contato '{$contact->name}'");
 
         return redirect()->route('contacts.index')
             ->with('success', 'Contato removido com sucesso.');

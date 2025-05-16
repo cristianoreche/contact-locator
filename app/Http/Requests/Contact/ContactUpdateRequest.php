@@ -19,18 +19,18 @@ class ContactUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['required', 'string'],
-            'cpf'         => ['required', 'string', 'unique:contacts,cpf,' . $this->route('id')],
-            'phone'       => ['required', 'string'],
-            'cep'         => ['required', 'string'],
-            'state'       => ['required', 'string'],
-            'city'        => ['required', 'string'],
-            'bairro'      => ['nullable', 'string'],
-            'street'      => ['required', 'string'],
-            'number'      => ['required', 'string'],
-            'complement'  => ['nullable', 'string'],
-            'latitude'    => ['nullable', 'string'],
-            'longitude'   => ['nullable', 'string'],
+            'name' => ['required', 'string'],
+            'cpf' => ['required', 'string', 'unique:contacts,cpf,' . $this->route('id')],
+            'phone' => ['required', 'string'],
+            'cep' => ['required', 'string'],
+            'state' => ['required', 'string'],
+            'city' => ['required', 'string'],
+            'bairro' => ['nullable', 'string'],
+            'street' => ['required', 'string'],
+            'number' => ['required', 'string'],
+            'complement' => ['nullable', 'string'],
+            'latitude' => ['nullable', 'string'],
+            'longitude' => ['nullable', 'string'],
         ];
     }
 
@@ -60,9 +60,14 @@ class ContactUpdateRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json([
-            'message' => 'Os dados fornecidos são inválidos.',
-            'errors' => $validator->errors(),
-        ], 422));
+        if ($this->expectsJson()) {
+            throw new HttpResponseException(response()->json([
+                'message' => 'Os dados fornecidos são inválidos.',
+                'errors' => $validator->errors(),
+            ], 422));
+        }
+
+        parent::failedValidation($validator);
     }
+
 }

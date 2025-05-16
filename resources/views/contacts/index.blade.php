@@ -1,60 +1,13 @@
 <x-layout.app>
     <x-shared.alert />
-
     <div class="uc-page">
         <div class="uc-card">
-
-
-
-            <style>
-                .uc-card__search-bar {
-                    width: 100%;
-                    margin: 1rem 0;
-                }
-
-
-                .uc-card__container {
-                    display: grid;
-                    grid-template-columns: 1fr;
-                    gap: 1.5rem;
-                    margin-top: 1rem;
-                }
-
-                .uc-card__table-section {
-                    width: 100%;
-                }
-
-                /* Mapa */
-                .uc-card__map {
-                    width: 100%;
-                    height: 400px;
-                    border-radius: var(--radius-md);
-                    overflow: hidden;
-                    border: 1px solid var(--border);
-                }
-
-
-                @media (min-width: 1024px) {
-                    .uc-card__container {
-                        grid-template-columns: 1fr 1fr;
-                        align-items: start;
-                    }
-
-                    .uc-card__map {
-                        height: 600px;
-                    }
-                }
-            </style>
-
-
             <div class="uc-card__header">
                 <h2 class="uc-card__title">Meus Contatos</h2>
                 <div class="uc-card__actions">
                     <a href="{{ route('contacts.create') }}" class="uc-button">+ Novo Contato</a>
-
                 </div>
             </div>
-
             <div class="uc-card__search-bar">
                 <div class="uc-form__row grouped-row">
                     <x-shared.search name="search" placeholder="Pesquisar por nome ou CPF..." />
@@ -62,14 +15,12 @@
                         class="uc-button uc-button--info">
                         Exportar CSV
                     </a>
-
                     <a href="{{ route('contacts.export.pdf', ['search' => request('search')]) }}"
                         class="uc-button uc-button--success">
                         Exportar PDF
                     </a>
                 </div>
             </div>
-
             <div class="uc-card__search-bar">
                 <form method="GET" class="uc-form__row grouped-row">
                     <select name="city" class="uc-form__input">
@@ -78,7 +29,6 @@
                             <option value="{{ $city }}" @selected(request('city') == $city)>{{ $city }}</option>
                         @endforeach
                     </select>
-
                     <select name="state" class="uc-form__input">
                         <option value="">Todos os Estados</option>
                         @foreach ($states as $state)
@@ -92,31 +42,24 @@
             </div>
 
             <div class="uc-card__container">
-
                 <!-- TABELA -->
                 <div class="uc-card__table-section">
-
-
                     <div class="uc-card__table">
                         <x-shared.table :columns="[
-        'name' => 'Nome',
-        'phone' => 'Telefone',
-    ]" :items="$contacts"
+                                'name' => 'Nome',
+                                'phone' => 'Telefone',
+                            ]" :items="$contacts"
                             :actions="true" />
                         <x-shared.pagination :paginator="$contacts" />
                     </div>
                 </div>
-
                 <!-- MAPA -->
                 <div class="uc-card__map">
                     <div id="map-contatos-lateral" style="height: 100%; width: 100%;"></div>
                 </div>
             </div>
-
         </div>
     </div>
-    </div>
-
     @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', function () {

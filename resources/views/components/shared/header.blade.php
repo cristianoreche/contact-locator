@@ -9,6 +9,7 @@
         <nav class="uc-header__nav">
             <ul class="uc-header__menu">
                 <li><a href="{{ route('contacts.index') }}">Contatos</a></li>
+                <li><a href="{{ route('logs.index') }}">Logs</a></li>
                 <li><a href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sair</a></li>
             </ul>

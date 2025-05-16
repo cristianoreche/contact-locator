@@ -8,8 +8,9 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\VerificationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\LogWebController;
+
 // Rotas de login e registro
-// Login
 Route::get('/', [AuthWebController::class, 'loginForm'])->name('login');
 Route::get('/login', [AuthWebController::class, 'loginForm'])->name('login');
 Route::post('/login', [AuthWebController::class, 'login']);
@@ -59,3 +60,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/contacts/export/pdf', [ContactWebController::class, 'exportPdf'])->name('contacts.export.pdf');
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/logs', [LogWebController::class, 'index'])->name('logs.index');
+    Route::get('/logs/export/csv', [LogWebController::class, 'exportCsv'])->name('logs.export.csv');
+    Route::get('/logs/export/pdf', [LogWebController::class, 'exportPdf'])->name('logs.export.pdf');
+});

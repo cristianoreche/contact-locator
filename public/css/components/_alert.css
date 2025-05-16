@@ -13,6 +13,12 @@
     transition: var(--transition);
 }
 
+.uc-alert--primary {
+    border-color: var(--primary);
+    background-color: var(--primary);
+    color: var(--white);
+}
+
 .uc-alert::before {
     content: 'ⓘ';
     font-size: 1.25rem;
@@ -20,8 +26,8 @@
 }
 
 .uc-alert--success {
-    border-color: var(--sucess);
-    background-color: var(--sucess);
+    border-color: var(--success);
+    background-color: var(--success);
     color: var(--white);
 }
 

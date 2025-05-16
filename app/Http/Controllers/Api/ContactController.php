@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Contact\ContactStoreRequest;
 use App\Http\Requests\Contact\ContactUpdateRequest;
 use App\Models\Contact;
-use App\Services\GoogleMapsService;
+use App\Services\MockGeocoderService;
 use App\Services\Loggers\AuditLogger;
 
 class ContactController extends Controller
@@ -31,7 +31,7 @@ class ContactController extends Controller
         return response()->json($contacts);
     }
 
-    public function store(ContactStoreRequest $request, GoogleMapsService $geo)
+    public function store(ContactStoreRequest $request, MockGeocoderService $geo)
     {
         $data = $request->validated();
         $coords = $geo->getCoordinatesFromAddress($data);
@@ -61,7 +61,7 @@ class ContactController extends Controller
         return response()->json(['message' => 'Contato salvo com sucesso.', 'contact' => $contact], 201);
     }
 
-    public function update(ContactUpdateRequest $request, GoogleMapsService $geo, $id)
+    public function update(ContactUpdateRequest $request, MockGeocoderService $geo, $id)
     {
         $contact = Contact::where('user_id', auth()->id())->findOrFail($id);
         $data = $request->validated();
