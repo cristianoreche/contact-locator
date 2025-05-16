@@ -109,7 +109,7 @@ Cobertura:
 ## 🚀 Como Rodar o Projeto
 
 ```bash
-git clone https://github.com/seu-usuario/contact-locator.git
+git clone https://github.com/cristianoreche/contact-locator.git
 cd contact-locator
 
 composer install
