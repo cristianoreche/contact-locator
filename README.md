@@ -22,7 +22,12 @@ Sistema web completo para **cadastro de contatos com geolocalização** integrad
 - `Requests` para validação de formulários
 - `Repositories` para abstração do acesso a dados
 - `Components Blade` reutilizáveis: todos os elementos da interface foram componentizados, incluindo botões, tabelas, formulários, inputs, alertas, modais e estrutura de layout, facilitando a manutenção e padronização visual do sistema
-- `AuditLog` com IP e User-Agent de cada ação
+- `AuditLog`: sistema de **logs de auditoria completo**, com registro automático de todas as ações dos usuários autenticados, incluindo:
+  - Ação (`action`)
+  - Descrição detalhada
+  - IP (`ip_address`)
+  - Agente do navegador (`user_agent`)
+  - Data e hora (`created_at`)
 
 ---
 
@@ -71,6 +76,17 @@ As **migrations** criam três tabelas principais:
 - Filtros de busca (por nome, CPF, cidade, estado)
 - Tabela responsiva com ações
 - Logs de auditoria para cada ação do usuário
+
+---
+
+## 📝 Funcionalidades do Módulo de Logs
+
+- Listagem de logs com paginação
+- Filtro por tipo de ação e descrição
+- Exibição do IP e navegador utilizado
+- Exportação para **CSV** e **PDF** com filtros aplicados
+- Mapeamento legível das ações (ex: `updated_contact` → "Atualizou Contato")
+- Acesso protegido por autenticação
 
 ---
 
