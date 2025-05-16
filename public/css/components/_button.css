@@ -3,13 +3,13 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 0.6rem 1.25rem;
+    padding: 12px 20px;
     font-size: var(--font-size-base);
     font-weight: 500;
     border: none;
     border-radius: var(--radius-md);
     cursor: pointer;
-    background-color: var(--color-primary);
+    background-color: var(--primary);
     color: #ffffff;
     transition: background-color var(--transition), box-shadow var(--transition);
     text-decoration: none;
@@ -18,46 +18,75 @@
 }
 
 .uc-button:hover {
-    background-color: #1e40af; 
+    background-color: var(--primary-hover);
 }
 
 .uc-button:focus {
-    outline: 2px solid #93c5fd;
+    outline: 2px solid var(--primary);
     outline-offset: 2px;
 }
+
 
 .uc-button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
 
+.uc-button--info {
+    background-color: var(--info);
+    color: var(--white);
+}
+
+.uc-button--info:hover {
+    background-color: var(--info-hover);
+}
+
+.uc-button--info:focus {
+    outline: 2px solid var(--info);
+    outline-offset: 2px;
+}
+
+.uc-button--success {
+    background-color: var(--success);
+    color: var(--white);
+}
+
+.uc-button--success:hover {
+    background-color: var(--success-hover);
+}
+
+.uc-button--success:focus {
+    outline: 2px solid var(--success);
+    outline-offset: 2px;
+}
+
 .uc-button--secondary {
-    background-color: #e5e7eb;
-    color: var(--color-text);
+    background-color: var(--secondary);
+    color: var(--text);
 }
 
 .uc-button--secondary:hover {
-    background-color: #d1d5db;
+    background-color: var(--secondary-hover);
+    color: var(--white);
+}
+
+.uc-button--secondary:focus {
+    outline: 2px solid var(--secondary);
+    outline-offset: 2px;
 }
 
 .uc-button--danger {
-    background-color: var(--color-danger);
-    color: #ffffff;
+    background-color: var(--danger);
+    color: var(--white);
 }
 
 .uc-button--danger:hover {
-    background-color: #b91c1c;
+    background-color: var(--danger-hover)
 }
 
-.uc-button--outline {
-    background-color: transparent;
-    border: 1px solid var(--color-primary);
-    color: var(--color-primary);
-}
-
-.uc-button--outline:hover {
-    background-color: var(--color-primary);
-    color: #fff;
+.uc-button--secondary:focus {
+    outline: 2px solid var(--danger);
+    outline-offset: 2px;
 }
 
 .uc-button--sm {
@@ -83,8 +112,62 @@
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
+.uc-icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    margin-right: 0.25rem;
+    border: none;
+    background-color: transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color var(--transition), color var(--transition);
+    font-size: var(--font-size-lg);
+    color: var(--neutral);
+    vertical-align: middle;
+}
 
+.uc-icon-button:last-child {
+    margin-right: 0;
+}
+
+.uc-icon-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--text);
+}
+
+.uc-icon-button i {
+    pointer-events: none;
+}
+
+.uc-icon-button--view:hover {
+    background-color: rgba(37, 99, 235, 0.1);
+    color: var(--primary);
+}
+
+.uc-icon-button--edit:hover {
+    background-color: var(--primary-hover);
+    color: var(--white);
+}
+
+.uc-icon-button--danger:hover {
+    background-color: var(--danger-hover);
+    color: var(--white);
+}
+
+.uc-icon-actions {
+    display: flex;
+    align-items: center;
+}

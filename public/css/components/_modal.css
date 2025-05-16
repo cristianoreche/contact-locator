@@ -28,7 +28,7 @@
     font-size: var(--font-size-lg);
     font-weight: 600;
     margin-bottom: 1rem;
-    color: var(--color-text);
+    color: var(--text);
 }
 
 .uc-modal__footer {

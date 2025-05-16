@@ -14,7 +14,7 @@
                         @method($method)
                     @endif
 
-                    <button type="button" data-modal-close>Cancelar</button>
+                    <button type="button" class="uc-button uc-button--secondary" data-modal-close>Cancelar</button>
                     <button type="submit" class="uc-button uc-button--danger">Confirmar</button>
                 </form>
             @else

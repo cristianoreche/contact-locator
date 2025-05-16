@@ -8,6 +8,7 @@ use App\Http\Requests\Contact\ContactStoreRequest;
 use App\Http\Requests\Contact\ContactUpdateRequest;
 use App\Services\MockGeocoderService;
 use Illuminate\Support\Facades\Response;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ContactWebController extends Controller
 {
@@ -15,18 +16,24 @@ class ContactWebController extends Controller
     {
         $query = Contact::where('user_id', auth()->id());
 
-        if ($request->filled('search')) {
-            $search = $request->input('search');
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('cpf', 'like', "%{$search}%");
-            });
+
+        if ($request->filled(key: 'city')) {
+            $query->where('city', $request->input('city'));
         }
 
-        $contacts = $query->orderBy('name')->paginate(10);
+        if ($request->filled('state')) {
+            $query->where('state', $request->input('state'));
+        }
 
-        return view('contacts.index', compact('contacts'));
+        $contacts = $query->orderBy('name')->paginate(10)->withQueryString();
+
+        // Dados únicos para os selects
+        $cities = Contact::where('user_id', auth()->id())->select('city')->distinct()->pluck('city');
+        $states = Contact::where('user_id', auth()->id())->select('state')->distinct()->pluck('state');
+
+        return view('contacts.index', compact('contacts', 'cities', 'states'));
     }
+
 
     public function create()
     {
@@ -101,9 +108,29 @@ class ContactWebController extends Controller
         return redirect()->route('contacts.index')->with('success', 'Contato atualizado com sucesso.');
     }
 
-    public function export()
+    public function destroy($id)
     {
-        $contacts = Contact::where('user_id', auth()->id())->get();
+        $contact = Contact::where('user_id', auth()->id())->findOrFail($id);
+        $contact->delete();
+
+        return redirect()->route('contacts.index')
+            ->with('success', 'Contato removido com sucesso.');
+    }
+
+
+    public function export(Request $request)
+    {
+        $query = Contact::where('user_id', auth()->id());
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('cpf', 'like', "%{$search}%");
+            });
+        }
+
+        $contacts = $query->orderBy('name')->get();
 
         $csv = [];
         $csv[] = [
@@ -156,12 +183,22 @@ class ContactWebController extends Controller
     }
 
 
-    public function destroy($id)
+    public function exportPdf(Request $request)
     {
-        $contact = Contact::where('user_id', auth()->id())->findOrFail($id);
-        $contact->delete();
+        $query = Contact::where('user_id', auth()->id());
 
-        return redirect()->route('contacts.index')
-            ->with('success', 'Contato removido com sucesso.');
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('cpf', 'like', "%{$search}%");
+            });
+        }
+
+        $contacts = $query->orderBy('name')->get();
+
+       $pdf = Pdf::loadView('contacts.pdf', compact('contacts'));
+        return $pdf->download('contatos_' . now()->format('Ymd_His') . '.pdf');
     }
+
 }

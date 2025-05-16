@@ -18,7 +18,7 @@
 }
 
 .uc-form-input:focus {
-    border-color: var(--color-primary);
+    border-color: var(--primary);
     outline: none;
 }
 
@@ -27,4 +27,33 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 15px;
+}
+
+.uc-form__row.uc-form__group {
+    margin-bottom: 0;
+}
+
+.uc-form__row.grouped-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.uc-form__row.grouped-row .field {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.uc-form__row.grouped-row .field__input {
+    width: 100%;
+}
+
+@media (max-width: 780px) {
+    .uc-form__row.grouped-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

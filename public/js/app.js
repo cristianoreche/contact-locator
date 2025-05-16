@@ -19,24 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // === TOGGLE MAP ===
-    // === TOGGLE MAP ===
-    window.toggleMap = function (id) {
-        const row = document.getElementById("map-row-" + id);
+    // === TOGGLE DETALHES ===
+    window.toggleDetails = function (id) {
+        const row = document.getElementById("details-" + id);
         if (row) {
             row.style.display = row.style.display === "none" ? "" : "none";
-
-            // Redesenha o mapa ao abrir para corrigir problema de quebra
-            if (row.style.display === "") {
-                setTimeout(() => {
-                    const mapId = "map-contact-" + id;
-                    const mapEl = document.getElementById(mapId);
-                    if (mapEl && mapEl._leaflet_id) {
-                        const map = L.map(mapId);
-                        map.invalidateSize();
-                    }
-                }, 300);
-            }
         }
     };
 

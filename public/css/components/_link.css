@@ -1,6 +1,6 @@
 
 .uc-link {
-    color: var(--color-primary);
+    color: var(--primary);
     font-size: var(--font-size-sm);
     text-decoration: underline;
 }

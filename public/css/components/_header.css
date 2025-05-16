@@ -1,7 +1,7 @@
 .uc-header {
-    background-color: #1e3a8a;
+    background-color: var(--primary);
     padding: 1rem 0;
-    color: white;
+    color:  var(--white);
 }
 
 .uc-header__container {
@@ -11,8 +11,9 @@
 }
 
 .uc-header__logo a {
-    font-size: 1.25rem;
-    font-weight: 700;
+    text-decoration: none;
+    font-size: var(--font-size-base);
+    font-weight: 500;
     color: white;
 }
 
@@ -25,6 +26,8 @@
 
 .uc-header__menu a {
     color: white;
+    font-size: var(--font-size-base);
+    text-decoration: none;
     font-weight: 500;
     transition: opacity 0.2s ease;
 }

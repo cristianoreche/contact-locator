@@ -7,9 +7,8 @@
     margin-bottom: 1rem;
     font-size: var(--font-size-sm);
     line-height: 1.5;
-    border-left: 4px solid;
-    background-color: var(--color-bg);
-    color: var(--color-text);
+    background-color: var(--bg);
+    color: var(--text);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     transition: var(--transition);
 }
@@ -21,27 +20,27 @@
 }
 
 .uc-alert--success {
-    border-color: #16a34a;
-    background-color: #ecfdf5;
-    color: #065f46;
+    border-color: var(--sucess);
+    background-color: var(--sucess);
+    color: var(--white);
 }
 
 .uc-alert--error {
-    border-color: var(--color-danger);
-    background-color: #fef2f2;
-    color: #991b1b;
+    border-color: var(--danger);
+    background-color: var(--danger);
+    color: var(--white);
 }
 
 .uc-alert--warning {
-    border-color: #facc15;
-    background-color: #fef9c3;
-    color: #92400e;
+    border-color: var(--warning);
+    background-color: var(--warning);
+    color: var(--text);
 }
 
 .uc-alert--info {
-    border-color: var(--color-primary);
-    background-color: #eff6ff;
-    color: #1e3a8a;
+    border-color: var(--primary);
+    background-color: var(--info);
+    color: var(--white);
 }
 
 .uc-alert__list {

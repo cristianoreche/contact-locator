@@ -5,7 +5,7 @@
         </label>
     @endif
 
-    <div class="uc-form__input-wrapper" style="position: relative;">
+    <div class="uc-form__input-wrapper">
         <input
             type="{{ $type }}"
             name="{{ $name }}"

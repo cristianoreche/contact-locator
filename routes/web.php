@@ -56,5 +56,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/contacts/{id}', [ContactWebController::class, 'update'])->name('contacts.update');
     Route::delete('/contacts/{id}', [ContactWebController::class, 'destroy'])->name('contacts.destroy');
     Route::get('/contacts/export', [ContactWebController::class, 'export'])->name('contacts.export');
+    Route::get('/contacts/export/pdf', [ContactWebController::class, 'exportPdf'])->name('contacts.export.pdf');
 });
 

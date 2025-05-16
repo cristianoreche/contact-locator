@@ -1,61 +1,150 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📍 Contact Locator
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema web completo para **cadastro de contatos com geolocalização** integrado ao mapa e exportação em PDF/CSV. Projeto desenvolvido como **teste técnico FullStack** com foco em organização, usabilidade e boas práticas com Laravel e Blade puro.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ⚙️ Tecnologias Utilizadas
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Laravel 11** com autenticação via **Sanctum**
+- **MariaDB** como banco de dados
+- **Blade** (sem Vue ou Livewire)
+- **CSS com metodologia BEM**
+- **Leaflet.js** para mapa interativo
+- **DomPDF** para geração de relatórios em PDF
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🧱 Estrutura do Projeto
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- `Controllers/Api` e `Controllers/Web`
+- `Services` (ex: `MockGeocoderService`)
+- `Requests` para validação de formulários
+- `Repositories` para abstração do acesso a dados
+- `Components Blade` reutilizáveis: todos os elementos da interface foram componentizados, incluindo botões, tabelas, formulários, inputs, alertas, modais e estrutura de layout, facilitando a manutenção e padronização visual do sistema
+- `AuditLog` com IP e User-Agent de cada ação
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## ♻️ Componentização e Boas Práticas
 
-## Laravel Sponsors
+O projeto foi desenvolvido com foco em **reutilização de código e arquitetura limpa**, por isso quase todos os elementos visuais foram implementados como **Componentes Blade**, seguindo o padrão BEM e com CSS modularizado.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+> Isso garante:
+> - Reaproveitamento fácil em diferentes views
+> - Estilo visual unificado
+> - Redução de duplicidade de código
+> - Facilidade para evoluir o sistema com novas funcionalidades
 
-### Premium Partners
+Exemplos de componentes implementados:
+- `<x-button>`, `<x-link>`, `<x-table>`, `<x-form.input>`, `<x-shared.alert>`, `<x-pagination>`, `<x-modal>` e outros
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 🧩 Banco de Dados
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+As **migrations** criam três tabelas principais:
 
-## Code of Conduct
+- `users`: com verificação de e-mail e senha
+- `contacts`: com campos completos de endereço, latitude e longitude
+- `audit_logs`: registro de ações dos usuários autenticados
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+> 💡 Requer um banco **MariaDB** já configurado no `.env`.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## ✉️ Funcionalidades de Autenticação
 
-## License
+- Cadastro com e-mail e verificação
+- Login com token
+- Recuperação de senha via e-mail
+- Proteção de rotas com middleware `auth` + `verified`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 🗺️ Funcionalidades do Módulo de Contatos
+
+- CRUD completo
+- Mapa lateral com todos os contatos georreferenciados
+- Visualização individual no mapa
+- Tooltip com informações e link direto para WhatsApp
+- Filtros de busca (por nome, CPF, cidade, estado)
+- Tabela responsiva com ações
+- Logs de auditoria para cada ação do usuário
+
+---
+
+## 📤 Exportações
+
+- Exportação de contatos em **CSV**
+- Exportação filtrada em **PDF**
+- Ambas as rotas já disponíveis no menu
+
+---
+
+## 🔍 Filtros e Pesquisa
+
+- Campo de **busca global** por nome e CPF
+- **Filtros por cidade e estado** diretamente na tabela
+- A filtragem impacta também os resultados do mapa
+
+---
+
+## ✅ Testes Automatizados
+
+Rodar os testes:
+
+```bash
+php artisan test
+```
+
+Cobertura:
+
+- Cadastro e login (AuthTest)
+- CRUD de contatos (ContactTest)
+- Validação de CPF (CpfValidationTest)
+
+---
+
+## 🚀 Como Rodar o Projeto
+
+```bash
+git clone https://github.com/seu-usuario/contact-locator.git
+cd contact-locator
+
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+
+# Configure o .env com o banco MariaDB da sua máquina
+php artisan serve
+```
+
+---
+
+## 🧪 Observações
+
+- O projeto usa um **Mock Geocoder** para simular coordenadas a partir do CEP/endereço
+- O envio de e-mail está baseado nas configurações do servidor (`MAIL_*` no `.env`)
+- Todo o layout é responsivo e adaptado para celular
+
+---
+
+### 🗺️ Por que usamos OpenStreetMap e não Google Maps?
+
+Optamos por utilizar **OpenStreetMap (OSM)** com a biblioteca **Leaflet.js** por ser uma solução gratuita, de código aberto e sem a necessidade de criar contas, tokens ou configurar métodos de pagamento, como ocorre com a API do Google Maps.
+
+Além disso, o OSM atende perfeitamente às necessidades do projeto, oferecendo visualização em mapa de ruas, satélite (via Esri) e suporte completo para marcadores, tooltips e controle de camadas, sem custos.
+
+**Vantagens:**
+- ✅ Sem necessidade de cadastro em plataformas externas
+- ✅ Sem chave de API
+- ✅ Sem cobrança por uso
+- ✅ Visual moderno e personalizável
+- ✅ Rápida integração com Leaflet
+
+
+## 👨‍💻 Autor
+
+Desenvolvido por **Cristiano Reche - Especialista PHP** – com foco em organização, escalabilidade e clareza técnica para avaliação em testes de seleção.

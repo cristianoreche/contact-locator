@@ -9,8 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.css" />
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
 
 </head>
 
@@ -23,6 +26,9 @@
 
 <script src="https://unpkg.com/imask"></script>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
+
+
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/components/_togglePassword.js') }}"></script>
 <script src="{{ asset('js/components/_button.js') }}"></script>

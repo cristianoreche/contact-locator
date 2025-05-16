@@ -3,130 +3,168 @@
 
     <div class="uc-page">
         <div class="uc-card">
-            <div class="uc-page__header uc-page__header--between">
-                <h1 class="uc-page__title">Meus Contatos</h1>
 
-                <div class="uc-page__actions">
-                    <a href="{{ route('contacts.create') }}" class="uc-button">
-                        + Novo Contato
+
+
+            <style>
+                .uc-card__search-bar {
+                    width: 100%;
+                    margin: 1rem 0;
+                }
+
+
+                .uc-card__container {
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                    margin-top: 1rem;
+                }
+
+                .uc-card__table-section {
+                    width: 100%;
+                }
+
+                /* Mapa */
+                .uc-card__map {
+                    width: 100%;
+                    height: 400px;
+                    border-radius: var(--radius-md);
+                    overflow: hidden;
+                    border: 1px solid var(--border);
+                }
+
+
+                @media (min-width: 1024px) {
+                    .uc-card__container {
+                        grid-template-columns: 1fr 1fr;
+                        align-items: start;
+                    }
+
+                    .uc-card__map {
+                        height: 600px;
+                    }
+                }
+            </style>
+
+
+            <div class="uc-card__header">
+                <h2 class="uc-card__title">Meus Contatos</h2>
+                <div class="uc-card__actions">
+                    <a href="{{ route('contacts.create') }}" class="uc-button">+ Novo Contato</a>
+
+                </div>
+            </div>
+
+            <div class="uc-card__search-bar">
+                <div class="uc-form__row grouped-row">
+                    <x-shared.search name="search" placeholder="Pesquisar por nome ou CPF..." />
+                    <a href="{{ route('contacts.export', ['search' => request('search')]) }}"
+                        class="uc-button uc-button--info">
+                        Exportar CSV
                     </a>
-                    <x-form.button type="button" onclick="window.location='{{ route('contacts.export') }}'"
-                        variant="secondary">
-                        Exportar Contatos
-                    </x-form.button>
-                    <x-form.button type="button" onclick="toggleViewMode()" variant="secondary" id="toggleViewButton">
-                        Ver Mapa
-                    </x-form.button>
+
+                    <a href="{{ route('contacts.export.pdf', ['search' => request('search')]) }}"
+                        class="uc-button uc-button--success">
+                        Exportar PDF
+                    </a>
                 </div>
             </div>
 
-            <form method="GET" class="uc-form uc-form--inline mb-4">
-                <input type="text" name="search" class="uc-form__input" placeholder="Buscar por nome ou CPF..."
-                    value="{{ request('search') }}">
-                <button type="submit" class="uc-button uc-button--secondary">Buscar</button>
-            </form>
+            <div class="uc-card__search-bar">
+                <form method="GET" class="uc-form__row grouped-row">
+                    <select name="city" class="uc-form__input">
+                        <option value="">Todas as Cidades</option>
+                        @foreach ($cities as $city)
+                            <option value="{{ $city }}" @selected(request('city') == $city)>{{ $city }}</option>
+                        @endforeach
+                    </select>
 
-            <!-- MODO LISTA -->
-            <div id="list-view" class="uc-table-responsive uc-table--bordered">
-                <table class="uc-table">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>CPF</th>
-                            <th>Telefone</th>
-                            <th>Cidade</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($contacts as $contact)
-                            <tr>
-                                <td>{{ $contact->name }}</td>
-                                <td>{{ $contact->cpf }}</td>
-                                <td>{{ $contact->phone }}</td>
-                                <td>{{ $contact->city }} / {{ $contact->state }}</td>
-                                <td>
-                                    @if($contact->latitude && $contact->longitude)
-                                        <button class="uc-icon-button" onclick="toggleMap({{ $contact->id }})"
-                                            title="Ver no mapa">
-                                            <i class="ri-map-pin-line"></i>
-                                        </button>
-                                    @endif
-                                    <a href="{{ route('contacts.edit', $contact->id) }}" class="uc-icon-button"
-                                        title="Editar">
-                                        <i class="ri-edit-line"></i>
-                                    </a>
-                                    <button class="uc-icon-button" data-modal-target="modal-{{ $contact->id }}"
-                                        title="Excluir">
-                                        <i class="ri-delete-bin-line"></i>
-                                    </button>
-                                    <x-shared.modal id="modal-{{ $contact->id }}" title="Excluir Contato"
-                                        :action="route('contacts.destroy', $contact->id)" method="DELETE">
-                                        Tem certeza que deseja excluir o contato <strong>{{ $contact->name }}</strong>?
-                                    </x-shared.modal>
-                                </td>
-                            </tr>
-                            <tr id="map-row-{{ $contact->id }}" style="display:none;">
-                                <td colspan="5">
-                                    <x-shared.map :lat="(float) $contact->latitude" :lng="(float) $contact->longitude"
-                                        id="map-contact-{{ $contact->id }}" :zoom="15" />
-                                </td>
-                            </tr>
+                    <select name="state" class="uc-form__input">
+                        <option value="">Todos os Estados</option>
+                        @foreach ($states as $state)
+                            <option value="{{ $state }}" @selected(request('state') == $state)>{{ $state }}</option>
+                        @endforeach
+                    </select>
 
-                        @empty
-                            <tr>
-                                <td colspan="5">Nenhum contato encontrado.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                    <button type="submit" class="uc-button uc-button--secondary">Filtrar</button>
+                    <a href="{{ route('contacts.index') }}" class="uc-button uc-button--secondary">Limpar</a>
+                </form>
+            </div>
 
-                <div class="uc-mt-4">
-                    {{ $contacts->links() }}
+            <div class="uc-card__container">
+
+                <!-- TABELA -->
+                <div class="uc-card__table-section">
+
+
+                    <div class="uc-card__table">
+                        <x-shared.table :columns="[
+        'name' => 'Nome',
+        'phone' => 'Telefone',
+    ]" :items="$contacts"
+                            :actions="true" />
+                        <x-shared.pagination :paginator="$contacts" />
+                    </div>
+                </div>
+
+                <!-- MAPA -->
+                <div class="uc-card__map">
+                    <div id="map-contatos-lateral" style="height: 100%; width: 100%;"></div>
                 </div>
             </div>
 
-            <!-- MODO MAPA -->
-            <div id="map-view" style="display: none; height: 600px; border-radius: 8px; overflow: hidden">
-                <div id="map-contatos" style="height: 100%;"></div>
-            </div>
         </div>
     </div>
+    </div>
 
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const map = L.map('map-contatos-lateral', {
+                    fullscreenControl: true,
+                    fullscreenControlOptions: {
+                        position: 'topleft'
+                    }
+                }).setView([-25.43, -49.27], 7);
 
-    <script>
-        function toggleViewMode() {
-            const list = document.getElementById('list-view');
-            const map = document.getElementById('map-view');
-            const btn = document.getElementById('toggleViewButton');
+                const streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(map);
 
-            const isMapVisible = map.style.display !== 'none';
-
-            list.style.display = isMapVisible ? '' : 'none';
-            map.style.display = isMapVisible ? 'none' : '';
-            btn.innerText = isMapVisible ? 'Ver Mapa' : 'Ver Lista';
-
-            if (!isMapVisible) {
-                setTimeout(initMap, 100); // garante que o div já foi exibido
-            }
-        }
-
-        function initMap() {
-            const map = L.map('map-contatos').setView([-25.43, -49.27], 7);
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(map);
-
-            const contatos = @json($contacts);
-
-            contatos.forEach(contact => {
-                if (contact.latitude && contact.longitude) {
-                    const marker = L.marker([contact.latitude, contact.longitude]).addTo(map);
-                    marker.bindPopup(`<strong>${contact.name}</strong><br>${contact.city} - ${contact.state}`);
+                const satelliteLayer = L.tileLayer(
+                    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                    attribution: 'Tiles © Esri'
                 }
-            });
-        }
-    </script>
+                );
 
+                L.control.layers({
+                    'Rua': streetLayer,
+                    'Satélite': satelliteLayer
+                }).addTo(map);
+
+                const contatos = @json($contacts->items());
+
+                contatos.forEach(contact => {
+                    if (contact.latitude && contact.longitude) {
+                        const whatsapp = contact.phone
+                            ? `<br><strong><i class="ri-whatsapp-line"></i> WhatsApp:</strong> <a href="https://wa.me/55${contact.phone.replace(/\D/g, '')}" target="_blank">${contact.phone}</a>`
+                            : '';
+
+                        const marker = L.marker([contact.latitude, contact.longitude]).addTo(map);
+                        marker.bindPopup(
+                            `<strong>${contact.name}</strong><br>${contact.city} - ${contact.state}${whatsapp}`
+                        );
+                    }
+                });
+
+                window.centerMap = function (lat, lng, name) {
+                    map.setView([lat, lng], 15);
+                    L.popup()
+                        .setLatLng([lat, lng])
+                        .setContent(`<strong>${name}</strong>`)
+                        .openOn(map);
+                };
+            });
+        </script>
+    @endpush
 </x-layout.app>
